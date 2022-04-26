@@ -62,7 +62,7 @@ const Home: NextPage = () => {
           <h2 className="text-xl font-bold mb-4">sejutacita</h2>
           <div className="flex flex-wrap mb-4">
             {categories?.map(category => (
-              <CategoryButton key={name} data={category} isActive={activeCategory === category.id} onClick={handleClickCategory} />
+              <CategoryButton key={category.name} data={category} isActive={activeCategory === category.id} onClick={handleClickCategory} />
             ))}
           </div>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
