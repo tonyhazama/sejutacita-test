@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.app-img {
+  /* object-fit: contain;
+  width: 100% !important;
+  position: relative !important;
+  height: unset !important; */
+}
+
+.app-img-container {
+  width: 100%;
+}
+.app-img-container > div {
+  position: unset !important;
+}

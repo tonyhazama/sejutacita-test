@@ -65,7 +65,7 @@ const Home: NextPage = () => {
               <CategoryButton key={category.name} data={category} isActive={activeCategory === category.id} onClick={handleClickCategory} />
             ))}
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-6 gap-8">
             {/* <pre>{JSON.stringify(books, "", 2)}</pre> */}
             {books?.map(book => (
               <BookCard key={book.id} data={book} />
