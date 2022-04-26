@@ -10,7 +10,7 @@ export default function AppHeader() {
         <Container>
           <div className="flex">
             <Link href="/">
-              <a><Image src="/logo.webp" height="40" width="89" alt="sejutacita icon" /></a>
+              <a><Image src="/logo.png" height="40" width="89" alt="sejutacita icon" /></a>
             </Link>
           </div>
         </Container>

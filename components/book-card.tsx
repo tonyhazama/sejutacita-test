@@ -5,12 +5,12 @@ import AppImage from './app-image';
 
 interface Props {
   data: Book;
-  onClickBook: (id: number) => void
+  onClickBook?: (book: Book) => void
 }
 
-export default function BookCard({data, onClickBook}:Props) {
+export default function BookCard({data, onClickBook = () => {}}:Props) {
   return (
-    <div onClick={() => onClickBook(data.id)}>
+    <div onClick={() => onClickBook(data)}>
       <div className="mb-2">
         <AppImage src={data.cover_url} alt={data.title} />
       </div>

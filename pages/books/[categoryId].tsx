@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router'
@@ -7,6 +8,7 @@ import BookCard from '../../components/book-card';
 import Container from '../../components/container';
 import { AppContext } from '../../components/context';
 import Layout from '../../components/layout';
+import SearchBox from '../../components/search-box';
 import { getBooks } from '../../services/books-api';
 import { AppAction, AppState } from '../../types/app-state';
 import { Book } from '../../types/book';
@@ -17,6 +19,7 @@ export default function Books() {
   const [category, setCategory] = useState<Category>();
   const router = useRouter()
   const [books, setBooks] = useState<Book[]>([]);
+  const [bookDetail, setBookDetail] = useState<Book>();
 
   const categoryId: number = parseInt(router.query.categoryId as string, 10);
 
@@ -30,9 +33,9 @@ export default function Books() {
   }, [store.categories]);
   
   useEffect(() => {
-    // if (category) {
+    if (categoryId) {
       getBookData(categoryId);
-    // }
+    }
   }, [categoryId]);
   
   const getBookData = async (categoryId: number) => {
@@ -49,6 +52,13 @@ export default function Books() {
     router.back();
   }
 
+  const handleClickBook = (book: Book) => {
+    setBookDetail(book);
+  }
+
+  const handleSearch = (keyword: string) => {
+    
+  }
 
   return (
     <div>
@@ -62,11 +72,11 @@ export default function Books() {
         <Layout>
           <div className="pt-4 pb-8">
             <BackButton onBack={handleBack} title={category?.name} />
-            <input className="" />
+            <SearchBox onSearch={handleSearch} />
           </div>
           <div className="grid grid-cols-2 md:grid-cols-6 gap-8">
             {books?.map(book => (
-              <BookCard key={book.id} data={book} />
+              <BookCard key={book.id} data={book} onClickBook={handleClickBook} />
             ))}
           </div>
         </Layout>

@@ -43,8 +43,8 @@ export const AppContextProvider = ({children}: Props) => {
 
   const loadLocalBookmark = () => {
     const localBookmarks = localStorage.getItem("bookmarks");
-    if(localBookmarks && JSON.stringify(localBookmarks)) {
-      dispatch({type: SET_BOOKMARKS, payload: {bookmarks: JSON.stringify(localBookmarks)}});
+    if(localBookmarks && JSON.parse(localBookmarks)) {
+      dispatch({type: SET_BOOKMARKS, payload: {bookmarks: JSON.parse(localBookmarks)}});
     }
   }
   
