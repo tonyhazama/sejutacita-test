@@ -1,13 +1,15 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
+import Category from '../types/category';
 
 interface Props {
-  name: string;
-  id: number;
+  data: Category;
+  isActive: boolean;
   onClick: (id: number) => void;
 }
 
-export default function CategoryButton({name, id, onClick}: Props) {
+export default function CategoryButton({data, isActive, onClick}: Props) {
+  const {name, id} = data;
   return (
-    <div className="px-4 py-1 border-2 border-gray-400 rounded-sm mr-2 mb-2 text-sm cursor-pointer" onClick={() => onClick(id)}>{name}</div>
+    <div className={"px-4 py-1 border-2 border-gray-400 rounded-sm mr-2 mb-2 text-sm cursor-pointer " + (isActive ? "bg-yellow-300" : "")} onClick={() => onClick(id)}>{name}</div>
   )
 }
