@@ -7,6 +7,6 @@ interface Props {
 export default function Container({children}: Props) {
   
   return (
-    <div className="container p-4 m-auto">{children}</div>
+    <div className="container px-4 md:px-0 m-auto">{children}</div>
   )
 }

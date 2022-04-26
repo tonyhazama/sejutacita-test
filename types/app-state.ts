@@ -3,17 +3,18 @@ import Category from "./category";
 
 
 export interface AppState {
-  bookmark: Book[];
+  bookmarks: Book[];
   categories: Category[];
 }
 
 export interface AppAction {
   type: string;
-  payload: AppState;
+  payload: AppState | any;
 }
 
 export enum ActionTypes {
   SET_CATEGORY = "SET_CATEGORY",
+  SET_BOOKMARKS = "SET_BOOKMARKS",
   ADD_BOOKMARK = "ADD_BOOKMARK",
   REMOVE_BOOKMARK = "REMOVE_BOOKMARK",
 }

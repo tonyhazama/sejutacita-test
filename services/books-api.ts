@@ -13,6 +13,7 @@ const getCategories = async () => {
 const getBooks = async (categoryId: number, page?: number, size?: number) => {
   try {
     const response = await getInstance().get(routes.getBooks(categoryId, page, size));
+    
     return [response.data, ];
   } catch (err) {
     return [, err];

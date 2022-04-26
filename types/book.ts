@@ -9,4 +9,5 @@ export interface Book {
   description: string;
   section: BookSection[];
   audio_length: number;
+  category?: string;
 }

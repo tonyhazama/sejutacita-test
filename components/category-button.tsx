@@ -3,13 +3,11 @@ import Category from '../types/category';
 
 interface Props {
   data: Category;
-  isActive: boolean;
-  onClick: (id: number) => void;
 }
 
-export default function CategoryButton({data, isActive, onClick}: Props) {
+export default function CategoryButton({data}: Props) {
   const {name, id} = data;
   return (
-    <div className={"px-4 py-1 border-2 border-gray-400 rounded-sm mr-2 mb-2 text-sm cursor-pointer " + (isActive ? "bg-yellow-300" : "")} onClick={() => onClick(id)}>{name}</div>
+    <div className={"px-4 py-1 border-2 border-gray-400 rounded-sm mr-2 mb-2 text-sm cursor-pointer "}>{name}</div>
   )
 }

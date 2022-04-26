@@ -1,10 +1,11 @@
 import { Context, ContextType, createContext, useEffect, useReducer } from "react";
+import { getCategories } from "../services/books-api";
 import { AppAction, AppState, ActionTypes } from "../types/app-state";
 
-const {SET_CATEGORY, ADD_BOOKMARK, REMOVE_BOOKMARK} = ActionTypes;
+const {SET_CATEGORY, SET_BOOKMARKS, REMOVE_BOOKMARK} = ActionTypes;
 
 export const initialAppState = {
-  bookmark: [],
+  bookmarks: [],
   categories: []
 };
 
@@ -14,17 +15,12 @@ export const appReducer = (state: AppState, action: AppAction) => {
     case SET_CATEGORY:
       return {
         ...state,
-        theme: payload.bookmark,
+        categories: payload.categories,
       };
-    case ADD_BOOKMARK:
+    case SET_BOOKMARKS:
       return {
         ...state,
-        theme: payload.bookmark,
-      };
-    case REMOVE_BOOKMARK:
-      return {
-        ...state,
-        theme: payload.bookmark,
+        bookmarks: payload.bookmarks,
       };
     default:
       return { ...state };
@@ -40,12 +36,23 @@ interface Props {
 export const AppContextProvider = ({children}: Props) => {
   const [store, dispatch] = useReducer(appReducer, initialAppState);
 
-  // useEffect(() => {
-  //   const storedTheme = localStorage.getItem('bookmark');
-  // //   if (storedTheme) {
-  // //     dispatch({type: SET_THEME, payload: {theme: storedTheme}})
-  // //   }
-  // }, []);
+  useEffect(() => {
+    loadLocalBookmark();
+    getCategoriesData();
+  }, []);
+
+  const loadLocalBookmark = () => {
+    dispatch({type: SET_BOOKMARKS, payload: {bookmarks: JSON.parse(localStorage.getItem("bookmarks")) || []}});
+  }
+  
+  const getCategoriesData = async () => {
+    try {
+      const [categories] = await getCategories();
+      dispatch({type: SET_CATEGORY, payload: {categories}});
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   return (
     <AppContext.Provider value={[store, dispatch]}>

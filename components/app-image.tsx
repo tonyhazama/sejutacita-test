@@ -8,7 +8,7 @@ interface Props {
 
 export default function AppImage({src, alt}: Props) {
   return (
-    <div className="rounded-md overflow-hidden">
+    <div className="rounded-md overflow-hidden bg-gray-300">
       <Image 
         src={src}
         alt={alt}

@@ -1,7 +1,17 @@
 module.exports = {
   content: [],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        "main": "#191746"
+      },
+      height: {
+        "header": "70px"
+      },
+      borderWidth: {
+        "thin": "1px"
+      }
+    },
   },
   plugins: [
     function ({ addComponents }) {
