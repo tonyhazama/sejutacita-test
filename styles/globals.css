@@ -2,16 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
-.app-img {
-  /* object-fit: contain;
-  width: 100% !important;
-  position: relative !important;
-  height: unset !important; */
+.AppModal {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0px;
+  background-color: transparent;
+  margin: auto;
+  outline: none;
 }
 
-.app-img-container {
-  width: 100%;
-}
-.app-img-container > div {
-  position: unset !important;
+.AppModal-Overlay {
+  position: fixed;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, .3  );
 }

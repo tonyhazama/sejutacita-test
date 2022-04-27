@@ -6,10 +6,18 @@ module.exports = {
         "main": "#191746"
       },
       height: {
-        "header": "70px"
+        "header": "70px",
+        "book-detail":  "calc(100% - 70px)"
+      },
+      minHeight: {
+        "book-detail":  "calc(100% - 70px)"
       },
       borderWidth: {
         "thin": "1px"
+      },
+      backgroundColor: {
+        "backdrop": "rgba(0, 0, 0, 0.3)",
+        "main-accent": "#1c1a4f"
       }
     },
   },

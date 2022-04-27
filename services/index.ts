@@ -1,6 +1,6 @@
 import axios, { AxiosError } from "axios";
 
-const apiUrl = "";
+const baseURL = "https://tonyhazama-reverseproxy.herokuapp.com/";
 
 const errorResponseHandler = (error: AxiosError) => {
   return Promise.reject(error);
@@ -8,7 +8,7 @@ const errorResponseHandler = (error: AxiosError) => {
 
 const getInstance = () => {
   const instance = axios.create({
-    baseURL: apiUrl,
+    baseURL: baseURL,
     timeout: 60000,
     headers: {
       'Access-Control-Allow-Origin': '*',
@@ -25,8 +25,8 @@ const getInstance = () => {
 };
 
 const routes = {
-  getCategories: () => `https://asia-southeast2-sejutacita-app.cloudfunctions.net/fee-assessment-categories`,
-  getBooks: (categoryId: number, page: number = 0, size: number = 10) => `https://asia-southeast2-sejutacita-app.cloudfunctions.net/fee-assessment-books?categoryId=${categoryId}&page=${page}&size=${size}`,
+  getCategories: () => `/https://asia-southeast2-sejutacita-app.cloudfunctions.net/fee-assessment-categories`,
+  getBooks: (categoryId: number, page: number = 0, size: number = 10) => `/https://asia-southeast2-sejutacita-app.cloudfunctions.net/fee-assessment-books?categoryId=${categoryId}&page=${page}&size=${size}`,
 };
 
-export { getInstance, routes, apiUrl };
+export { getInstance, routes, baseURL };

@@ -1,7 +1,6 @@
-import Image from 'next/image';
-import React from 'react'
-import { Book } from '../types/book'
-import AppImage from './app-image';
+import React from 'react';
+import { Book } from '../types/book';
+import BookImage from './book-image';
 
 interface Props {
   data: Book;
@@ -10,12 +9,12 @@ interface Props {
 
 export default function BookCard({data, onClickBook = () => {}}:Props) {
   return (
-    <div onClick={() => onClickBook(data)}>
+    <div className={!!onClickBook ? "cursor-pointer" : ""} onClick={() => onClickBook(data)}>
       <div className="mb-2">
-        <AppImage src={data.cover_url} alt={data.title} />
+        <BookImage src={data.cover_url} alt={data.title} />
       </div>
-      <div className="font-semibold">{data.title}</div>
-      <div>{data.category}</div>
+      <div className="text-sm font-semibold">{data.title}</div>
+      <div className="text-xs">{data.authors[0]}</div>
     </div>
   )
 }

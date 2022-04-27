@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
+  strictMode: false,
   images: {
     domains: ['cdn.sejutacita.id'],
   }

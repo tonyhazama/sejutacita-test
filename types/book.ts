@@ -7,7 +7,7 @@ export interface Book {
   authors: string[];
   cover_url: string;
   description: string;
-  section: BookSection[];
+  sections: BookSection[];
   audio_length: number;
   category?: string;
 }

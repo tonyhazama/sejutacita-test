@@ -2,35 +2,25 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useContext, useEffect, useState } from 'react'
-import AppHeader from '../components/app-header'
 import BookCard from '../components/book-card'
-import CategoryButton from '../components/category-button'
-import Container from '../components/container'
-import { AppContext } from '../components/context'
+import { AppContext, useAppContext } from '../context/app-context-provider'
 import Layout from '../components/layout'
-import { getCategories, getBooks } from '../services/books-api'
-import { ActionTypes, AppAction, AppState } from '../types/app-state'
+import { useState } from 'react'
+import BookDetail from '../components/book-detail'
 import { Book } from '../types/book'
-import Category from '../types/category'
 
 const Home: NextPage = () => {
-  const [store, dispatch] = useContext<[AppState, (object: AppAction) => void]>(AppContext);
+  const [store, dispatch] = useAppContext();
+  const [bookDetail, setBookDetail] = useState<Book>();
 
-  useEffect(() => {
-    getCategoriesData();
-  }, []);
-
-
-  
-  const getCategoriesData = async () => {
-    try {
-      const [categories] = await getCategories();
-      dispatch({type: ActionTypes.SET_CATEGORY, payload: {categories}});
-    } catch (e) {
-      console.error(e);
-    }
+  const handleBookDetail = (book: Book) => {
+    setBookDetail(book);
   };
+
+  const handleClose = () => {
+    setBookDetail(undefined);
+  };
+
 
   return (
     <div>
@@ -40,13 +30,13 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="">
+      <main className="" id="main">
         <Layout>
           
           {/* Categories */}
           <div id="categories" className="py-4">
             <h2 className="text-lg font-bold mb-4">Explore Categories</h2>
-            <div className="flex flex-wrap mb-4">
+            <div className="flex flex-wrap">
               {store.categories?.map(category => (
                 <Link href={`/books/${category.id}`} key={category.name}>
                   <a className="py-1 px-2 rounded-md border-thin border-gray-300 mr-2 mb-2 text-sm">{category.name}</a>
@@ -60,11 +50,12 @@ const Home: NextPage = () => {
             <h2 className="text-lg font-bold mb-4">Bookmarks</h2>
             <div className="grid grid-cols-2 md:grid-cols-6 gap-8">
               {store.bookmarks?.map(book => (
-                <BookCard key={book.id} data={book} />
+                <BookCard key={book.id} data={book} onClickBook={handleBookDetail} />
               ))}
             </div>
           </div>
         </Layout>
+        {bookDetail && <BookDetail book={bookDetail} onClose={handleClose} />}
       </main>
     </div>
   )

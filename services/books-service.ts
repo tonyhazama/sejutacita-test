@@ -11,8 +11,20 @@ const getCategories = async () => {
 };
 
 const getBooks = async (categoryId: number, page?: number, size?: number) => {
+  console.log("getBooks")
   try {
-    const response = await getInstance().get(routes.getBooks(categoryId, page, size));
+    const response: AxiosResponse = await getInstance().get(routes.getBooks(categoryId, page, size));
+    
+    return [response.data, ];
+  } catch (err) {
+    return [, err];
+  }
+};
+
+const getAllBooks = async (categoryId: number) => {
+  console.log("getBooks")
+  try {
+    const response: AxiosResponse = await getInstance().get(routes.getBooks(categoryId, 0, 1000));
     
     return [response.data, ];
   } catch (err) {
@@ -21,4 +33,5 @@ const getBooks = async (categoryId: number, page?: number, size?: number) => {
 };
 
 
-export {getCategories, getBooks};
+
+export {getCategories, getBooks, getAllBooks};

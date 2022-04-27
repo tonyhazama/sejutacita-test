@@ -6,7 +6,7 @@ interface Props {
   alt: string;
 }
 
-export default function AppImage({src, alt}: Props) {
+export default function BookImage({src, alt}: Props) {
   return (
     <div className="rounded-md overflow-hidden bg-gray-300 transition-all shadow-sm hover:shadow-2xl">
       <Image 
