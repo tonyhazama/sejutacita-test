@@ -15,6 +15,7 @@ import Category from '../../types/category';
 import { getAllBooks } from '../../services/books-service';
 import BookDetail from '../../components/book-detail';
 import Pagination from '../../components/pagination';
+import Loading from '../../components/loading';
 
 export default function Books() {
   const [store, dispatch] = useAppContext();
@@ -89,9 +90,15 @@ export default function Books() {
             <SearchBox onSearch={handleSearch} />
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 pb-8">
-            {booksPaging?.map(book => (
-              <BookCard key={book.id} data={book} onClickBook={handleClickBook} />
-            ))}
+            {(books.length <= 0) ? (
+              <div className="col-span-full">
+                <Loading />
+              </div>
+            ) : (
+              booksPaging.map(book => (
+                <BookCard key={book.id} data={book} onClickBook={handleClickBook} />
+              ))
+            )}
           </div>
           <Pagination totalData={books.length} size={12} currentPage={page} onChangePage={handleChangePage} />
         </Layout>

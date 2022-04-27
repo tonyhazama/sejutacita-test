@@ -8,6 +8,7 @@ import Layout from '../components/layout'
 import { useState } from 'react'
 import BookDetail from '../components/book-detail'
 import { Book } from '../types/book'
+import Loading from '../components/loading'
 
 const Home: NextPage = () => {
   const [store, dispatch] = useAppContext();
@@ -37,11 +38,15 @@ const Home: NextPage = () => {
           <div id="categories" className="py-4">
             <h2 className="text-lg font-bold mb-4">Explore Categories</h2>
             <div className="flex flex-wrap">
-              {store.categories?.map(category => (
-                <Link href={`/books/${category.id}`} key={category.name}>
-                  <a className="py-1 px-2 rounded-md border-thin border-gray-300 mr-2 mb-2 text-sm">{category.name}</a>
-                </Link>
-              ))}
+              {(!store.categories || store.categories.length <= 0) ? (
+                <Loading />
+              ) : (
+                store.categories.map(category => (
+                  <Link href={`/books/${category.id}`} key={category.name}>
+                    <a className="py-1 px-2 rounded-md border-thin border-gray-300 mr-2 mb-2 text-sm">{category.name}</a>
+                  </Link>
+                ))
+              )}
             </div>
           </div>
           
@@ -53,6 +58,9 @@ const Home: NextPage = () => {
                 <BookCard key={book.id} data={book} onClickBook={handleBookDetail} />
               ))}
             </div>
+            {(!store.bookmarks || store.bookmarks?.length <= 0) && (
+              <div>No bookmark yet</div>
+            )}
           </div>
         </Layout>
         {bookDetail && <BookDetail book={bookDetail} onClose={handleClose} />}
