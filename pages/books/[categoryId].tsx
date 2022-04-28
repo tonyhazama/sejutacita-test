@@ -20,15 +20,15 @@ import Loading from '../../components/loading';
 export default function Books() {
   const [store, dispatch] = useAppContext();
   const [category, setCategory] = useState<Category>();
-  const router = useRouter()
   const [books, setBooks] = useState<Book[]>([]);
+  const [search, setSearch] = useState('');
   const [page, setPage] = useState(0);
   const [bookDetail, setBookDetail] = useState<Book>();
 
+  const router = useRouter()
 
-  const booksPaging = [...books].splice(page * 12, 12);
+  const booksPaging = [...(books.filter(b => b.visible))].splice(page * 12, 12);
   const categoryId: number = parseInt(router.query.categoryId as string, 10);
-  const bookId: number = parseInt(router.query.bookId as string, 10);
 
   useEffect(() => {
     if (store.categories) {
@@ -44,11 +44,25 @@ export default function Books() {
       getBookData(categoryId);
     }
   }, [categoryId]);
-  
+
+  useEffect(() => {
+    let filterBook = [...books];
+    filterBook = filterBook.map(book => {
+      // console.log(book.title.toLocaleLowerCase().includes(search), book.authors[0].toLowerCase().includes(search))
+      return (search && search.length > 0) ? {
+        ...book,
+        visible: book.title.toLocaleLowerCase().includes(search) || book.authors[0].toLowerCase().includes(search)
+      } : {...book, visible: true};
+    })
+    console.log(search, filterBook, filterBook.filter(e => e.visible))
+    setBooks(filterBook); 
+  }, [search]);
+
+
   const getBookData = async (categoryId: number) => {
     try {
       let [bookData] = await getAllBooks(categoryId);
-      bookData = bookData.map((book: Book) => ({...book, category: category?.name}));
+      bookData = bookData.map((book: Book) => ({...book, visible: true}));
       setBooks(bookData);
     } catch (e) {
       console.error(e);
@@ -67,12 +81,12 @@ export default function Books() {
     setBookDetail(undefined);
   }
 
-  const handleSearch = (keyword: string) => {
-    
-  }
-
   const handleChangePage = (page: number) => {
     setPage(page);
+  }
+
+  const handleSearch = (keyword: string) => {
+    setSearch(keyword);
   }
 
   return (
@@ -100,7 +114,7 @@ export default function Books() {
               ))
             )}
           </div>
-          <Pagination totalData={books.length} size={12} currentPage={page} onChangePage={handleChangePage} />
+          <Pagination totalData={books.filter(b => b.visible).length} size={12} currentPage={page} onChangePage={handleChangePage} />
         </Layout>
         {bookDetail && <BookDetail book={bookDetail} onClose={handleClose} />}
       </main>

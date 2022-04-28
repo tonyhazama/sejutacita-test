@@ -10,4 +10,5 @@ export interface Book {
   sections: BookSection[];
   audio_length: number;
   category?: string;
+  visible: boolean;
 }
