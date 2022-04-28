@@ -70,7 +70,7 @@ export default function Books() {
   };
 
   const handleBack = () => {
-    router.back();
+    router.push("/");
   }
 
   const handleClickBook = (book: Book) => {
